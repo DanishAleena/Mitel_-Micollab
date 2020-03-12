@@ -1,0 +1,21 @@
+---
+-
+  become: ture
+  hosts:  local_server
+  tasks:
+    -
+      args:
+        chdir: /opt/docker
+      command: docker build -t micollab.image .
+      name: "create docker image"
+    -
+      command: docker tag micollab.image miteldockerhub/micollab.image
+      name: "create a tag to images"
+    -
+      command: docker push miteldockerhub/micollab.image
+      name: "push image to docker"
+    -
+      command: docker rmi micollab.image miteldockerhub/micollab.image
+      ignore_errors: yes
+      name: "remove docker images from ansible master"
+

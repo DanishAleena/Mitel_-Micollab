@@ -1,0 +1,6 @@
+[local_server]
+localhost
+[QAServerUSA]
+172.31.10.30
+172.31.12.93
+

@@ -1,0 +1,23 @@
+--- 
+- 
+  become: ture
+  hosts: QAServerUSA
+  tasks: 
+    - 
+      command: "docker stop micollab.container"
+      ignore_errors: true
+      name: " Stop current running container"
+    - 
+      command: "docker rm micollab.container"
+      ignore_errors: true
+      name: "Remove stopped container"
+    - 
+      command: "docker rmi miteldockerhub/micollab.image micollab.image"
+      ignore_errors: true
+      name: "remove docker image"
+    - 
+      command: "docker pull miteldockerhub/micollab.image"
+      name: "pull docker image from HUB"
+    - 
+      command: "docker run -d --name micollab.container -p 8080:8080 miteldockerhub/micollab.image"
+      name: "Create container"
